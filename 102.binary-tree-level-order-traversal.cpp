@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode id=111 lang=cpp
+ * @lc app=leetcode id=102 lang=cpp
  *
- * [111] Minimum Depth of Binary Tree
+ * [102] Binary Tree Level Order Traversal
  */
 
 // @lc code=start
@@ -18,27 +18,27 @@
  */
 class Solution {
 public:
-    int minDepth(TreeNode* root) {
-        if (root == nullptr)
-            return 0;
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        if (!root)
+            return {};
+        vector<vector<int>> answer;
         queue<TreeNode*> q1;
         q1.push(root);
-        int level = 1;
         while (!q1.empty()) {
             int level_size = q1.size();
+            vector<int> current_level;
             for (int i = 0; i < level_size; i++) {
                 auto front = q1.front();
                 q1.pop();
-                if (front->left == nullptr && front->right == nullptr)
-                    return level;
+                current_level.push_back(front->val);
                 if (front->left)
                     q1.push(front->left);
                 if (front->right)
                     q1.push(front->right);
             }
-            level++;
+            answer.push_back(current_level);
         }
-        return level;
+        return answer;
     }
 };
 // @lc code=end
